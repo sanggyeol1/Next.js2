@@ -1,0 +1,74 @@
+Next.js part2
+
+작업폴더에 npx create-next-app@latest --experimental-app 치면 그 폴더의 하위폴더에 
+새로운 프로젝트 생성됨, Next장인에다가 하면 되는거임
+
+관계형 데이터베이스 : 데이터를 엑셀처럼 표에 저장함, 데이터 입출력 시 SQL이라는 언어를 
+사용해야 하고 미리 스키마 정의(표만들기)도 해야 하고 데이터 중복저장을 피하기 위해 
+정규화 해야 하고 여러가지 귀찮은 점들을 신경 써야 한다.
+
+비관계형 데이터베이스는 자료를 조금 더 자유로운 형식으로 저장할 수 있고 SQL언어,
+스키마 정의(표만들기), 정규화 이런것들이 필요가 대부분 필요가 없다.
+분산처리를 기본적으로 잘해서 주로 SNS서비스처럼 많은 데이터 입출력이 필요할 때도 강점을 보인다.
+
+MongoDb 초기세팅법 : 
+DataBase Access메뉴에서 Db접속용 아이디, 비번을 생성함, 
+역할을 atlas admin으로 설정(모든걸 다 할수 있는 권한)
+Network Access메뉴에서 IP를 추가함, 스타벅스에서 코딩할 수도 있으니 allow access from anywhere 또는 0.0.0.0/0을 추가함
+원래는 신뢰할 수 있는 ip만 추가하는 게 좋음
+
+
+monngodb
+database : 하나의 프로젝트
+collection : 하나의 폴더와 유사 (collection 이라는 폴더 안에 document(하나의 메모자 파일 등)를 object자료형으로 저장)
+
+mongoDb연결 : 
+1. npm install mongodb
+2. page.js에서 import { MongoClient } from "mongodb"
+3. export default async function Home() 이렇게 home 함수 지정
+5. util폴더에 database.js 파일 생성 후
+import { MongoClient } from 'mongodb'
+    const url = '커넥트 유얼 어플리케이션 DB접속URL~~'
+    const options = { useNewUrlParser: true }
+    let connectDB
+
+    if (process.env.NODE_ENV === 'development') {
+    if (!global._mongo) {
+        global._mongo = new MongoClient(url, options).connect()
+    }
+    connectDB = global._mongo
+    } else {
+    connectDB = new MongoClient(url, options).connect()
+    }
+    export { connectDB } 자세한건 part2 2번째 강의
+
+
+
+
+첨보는 프로그램 만들기 :
+1. 프로그램에 필요한 기능 전부 정리
+2. 쉬운 기능부터 하나씩 개발
+첨보는세부기능만들기 : 
+1. 어떤식으로 동작하는지 상세하게 한글로 설명. 
+2. 코드로 치환
+
+ex)게시판에 필요한 기능?
+ - 글목록 조회기능 : 1. html페이지 필요 2. 페이지 방문하면 db에서 글 꺼내옴 3. 글들을 html에 꽂아 넣기
+ - 상세페이지 : 
+ - 글발행기능
+ - 수정삭제기능
+
+ 상세페이지에 필요한 기능:
+1. 글제목누르면 상세페이지 이동
+2. 상세페이지 방문시 DB에서 글1개 꺼내서 html에 보여주기
+dynamic route 쓰면 /detail/1 /detail/2처럼 여러의 폴더를 만들 필요가 없다.
+
+ await이란? : 자바스크립트에서는 어떠한 코드가 실행이 오래 걸리면 다음 코드를 먼저 실행한다. 하지만 db를 가져오기 전에 다른 페이지를 로드해 버리면 이상해지기 때문에 await을 붙여서 db가 로드될 때까지 기다리는것이다.
+
+ object 자료형 : 
+ let data = { name : 'kim', age : 20 }
+
+ const db = (await connectDB).db("forum")//db에접속
+ let result = await db.collection('post').findOne({title : '안녕'})//title이 안녕인 것만 가져옴 근데 title이 중복이면 맨위에것만 가져오기 때문에 가져올때는 _id속성을 이용하는게 좋다. 
+
+
