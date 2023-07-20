@@ -8,8 +8,7 @@ export default async function Home() {
 
   return (
     <main>
-      {result[0].title}
-      <Link href="/list">list</Link>
+      <h3>{result[0].title}</h3>
     </main>
   )
 }4

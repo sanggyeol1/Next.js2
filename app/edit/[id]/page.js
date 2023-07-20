@@ -17,8 +17,8 @@ export default async function Edit(props){//props : 유저가 다이나믹 라�
         <div>
             <h4>글 수정 페이지</h4>
             <form action="/api/post/edit" method="POST" >
-                {/* 만들어서 POST요청에 같이 보내고 css로 숨겨버리기 */}
-                <input name="_id" className="hidden" defaultValue={props.params.id}/>
+                {/* 만들어서 POST요청에 같이 보내고 css로 숨겨버리기,toString으로문자열전환*/}
+                <input name="_id" className="hidden" defaultValue={result._id.toString()}/>
                 <input name="title" placeholder="글제목" defaultValue={result.title}/>
                 <input name="content" placeholder="글내용" defaultValue={result.content}/>
                 <button type="submit">글 수정</button>
