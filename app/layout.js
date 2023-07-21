@@ -1,8 +1,8 @@
-'use client'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from "next/link";
-import { useRouter } from "next/navigation"
+import NavBar from './navbar';
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -13,19 +13,11 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  let router = useRouter()
-
-
+  
   return (
     <html lang="en"> 
       <body className={inter.className}>
-        <div className="navbar"> 
-          <Link href="/" className="logo">Appleforum</Link> 
-          <Link href="/list">List</Link>
-          <Link href="#" onClick={()=>{
-            router.back()
-          }}> ← </Link>  
-        </div>
+        <NavBar/>
         {children}
         </body>
     </html>
