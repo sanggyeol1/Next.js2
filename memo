@@ -127,6 +127,77 @@ write\page.js에서 /api/post/new 로 POST요청을 보내면 서버에 object�
     Ajax : fetch를 사용하면 form태그를 이용하지 않아도 서버에 요청을 보낼 수 있다. 폼태그를 사용하면 새로고침이 반드시 되는데 fetch는 새로고침 안해도 댐 
 
     fetch에서 url주소로 POST요청을 보낸다. 이때, body에 문자와 숫자를 담아서 보내는데 object나 array를 담으려면 JSON.stringify() 안에 담아서 서버에 보낸 후 서버 내에서 JSON.parse()로 파싱을 한 뒤에 deleteOne으로 db내의 자료를 삭제해야 한다.
+    fetch쓸때 너무 코드가 길어서 axios를 사용하기도 한다.
+                            fetch('/api/post/delete',{
+                                method : "DELETE",
+                                body :  props.result[i]._id
+                            }).then((e)=>{
+                                e.target.parentElement.style.opacity = 0
+                            }).then((r)=>{
+                                if(r.status == 200) {
+                                  return r.json()
+                                } else {
+                                  //서버가 에러코드전송시 실행할코드
+                                }
+                            }).then((result)=>{ 
+                            //성공시 실행할코드
+                            }).catch((error)=>{
+                            //인터넷문제 등으로 실패시 실행할코드
+                            console.log(error)
+                            })
+
+서서히 사라지게 하는법 : opacity 1부터 0까지 주고 transitaion : all 1s 주면 댐
+
+
+서버기능들을 멋진 말로 API라고 부름
+
+query string : 서버에 fetch로 요청을 보낼 때 fetch('/api/test?name=kim&age=20') 이러한 형태의 요청을 query string 이라고 한다. 서버 내에서 요청.query 를 콘솔에 찍어보면 { name : 'kim', age : '20' }의 형태로 나온다.
+장점 : 간단함, GET요청으로 데이터 전송 가능
+단점 : 길어지면 더러워짐, url에 데이터가 노출이 됨
+
+url파라미터 문법 : 누가 url주소 뒤에 /아무거나 입력해도 [어쩌구].js에서 처리를 해줌
+누가 fetch('api/abc/kim')을 쓰면 [어쩌구].js에서 요청.query에 데이터가 찍힘 
+
+
+
+기능구현을 다 했으면 성능 향상이 필요하다.
+프로젝트 배포하려면 터미널 오픈 후에 npm run build(react문법을 html css js파일로 바꾸어 준다.)
+그 후 npm run start하면 배포됨
+
+*중요* rendering 방식 두가지
+O 페이지는 static rendering 해줌(default)
+npm run build 할때 만든 html 페이지 그대로 유저에게 보냄(기능은 없고 전송이 빠름)
+다만/list페이지같이 계속 변해서 dynamic rendering을 사용해야하는데 O표시가 되어있는 경우가 있음. static rendering이면 list같이 html의 변경이 빈번한 페이지도 글 작성을 하거나 삭제를 해도 html상의 변경이 이루어지지 않음
+
+ㅅ(람다)페이지는 dynamic rendering 해줌 (fetch쓰면 다이나믹 됨)
+유저가 페이지 접속마다 html을 새로 만들어서 보내줌
+
+ static rendering <-> dynamic rendering 바꾸는 법 : export const dynamic = 'force-dynamic'
+ 또는 export const dynamic = 'force-static' 을 list페이지에 컴포넌트 위에 선언한다.
+
+
+
+ 다이나믹 렌더링의 서버,db부담을 더는 법
+ 페이지 캐싱 : 잠깐 저장해두고 몰래 사용함
+ 글 발행을 해도 20초동안은 이미 저장해둔 값을 사용하기때문에 바로 변하지 않음
+ ex) 같은 list, list2 를 만들고 하나는 다이나믹 렌더링, 하나는 revalidation을 사용하면 전자는 발행, 삭제가 진행되자마자 html상에서의 삭제도 진행된다. 후자는 새로고침을 해도 일정 시간동안은 이미 저장해둔 값을 사용하기 때문에 바로 변하지 않는다.
+
+
+
+\
+ 캐싱 종류 : 
+  await fetch('/URL', {cache : 'force-cache'})//유알엘에 데이터 요청시 마다 결과몰래 저장해두고 그걸 씀 (데이터절약, 속도상승)
+  await fetch('/URL', {cache : 'no-store'})// 캐싱을 하지 않고 항상 새걸로 가져옴
+  await fetch('/URL', {next : {revalidate : 60}}) // 60초동안만 저장하고 그 이후부터는 새걸 씀
+
+ 
+
+
+
+
+
+
+
 
 
 

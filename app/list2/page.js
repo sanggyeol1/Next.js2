@@ -2,7 +2,8 @@ import { connectDB } from "@/util/database"
 import ListItem from "./ListItem";
 import WriteLink from "./writeLink";
 
-export const dynamic = 'force-dynamic'//다이나믹 렌더링으로 수정
+// export const dynamic = 'force-dynamic'//다이나믹 렌더링으로 수정
+export const revalidate = 20;//20초동안 캐싱된 결과 사용
 
 export default async function List() {
   

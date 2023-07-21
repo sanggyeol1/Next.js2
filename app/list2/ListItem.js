@@ -26,10 +26,7 @@ export default function ListItem(props){
                     <Link href={'/edit/' + props.result[i]._id}> ✏️ </Link>
                     <span style={{cursor : 'pointer'}} onClick={(e)=>{
                         //이 주소로 요청 가능, {method : 'POST'입력하면 POST요청가능}
-                        fetch('/api/post/delete',{
-                            method : "POST",
-                            body : props.result[i]._id
-                        })
+                        fetch('/api/post?'+props.result._id)
                         .then(()=>{//ajax요청이 성공적으로 끝났을 때 실행
                             e.target.parentElement.style.opacity = 0;
                             setTimeout(()=>{
