@@ -8,6 +8,11 @@ export default async function List() {
   
   const db = (await connectDB).db("forum")//db에접속
   let result = await db.collection('post').find().toArray()
+  
+  result = result.map((a)=>{
+    a._id = a._id.toString()
+    return a
+  })//오류없애기
     //post collection에 있는 모든 데이터를 출력해주세요
     // console.log(result)
     

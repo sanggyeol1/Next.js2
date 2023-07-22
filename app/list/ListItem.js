@@ -28,7 +28,7 @@ export default function ListItem(props){
                         //이 주소로 요청 가능, {method : 'POST'입력하면 POST요청가능}
                         fetch('/api/post/delete',{
                             method : "POST",
-                            body : props.result[i]._id
+                            body : props.result[i]._id,
                         })
                         .then(()=>{//ajax요청이 성공적으로 끝났을 때 실행
                             e.target.parentElement.style.opacity = 0;

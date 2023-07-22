@@ -13,7 +13,6 @@ export default function ListItem(props){
     // }) 여기서 db자료끌어와도 되는데 검색엔진 노출이 힘들어짐
    
     
-
     return(
         <div>
         {
