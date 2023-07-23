@@ -2,6 +2,8 @@
 // 글의 detail이나 edit사항 같이 반복되는 곳에서 사용하면 좋음
 import { connectDB } from "@/util/database"
 import { ObjectId } from "mongodb"
+import  Comment  from './Comment.js'
+import { getServerSession } from "next-auth";
 
 export default async function Detail(props){//props : 유저가 다이나믹 라우트에 입력한 값을출력가능
 
@@ -15,6 +17,7 @@ export default async function Detail(props){//props : 유저가 다이나믹 라
             <h4>상세페이지</h4>
             <h4>{result.title}</h4>
             <p>{result.content}</p>
+            <Comment/>
         </div>
     )
 }
