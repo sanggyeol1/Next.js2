@@ -14,7 +14,7 @@ export default async function handler(요청, 응답){
             content : 요청.body.comment,
             parent : new ObjectId(요청.body._id),
             author : session.user.email
-        }
+        }//object자료형으로 만든 후 한번에 db에 저장
 
         if(session){
             
