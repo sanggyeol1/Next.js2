@@ -4,6 +4,11 @@ import Link from "next/link";
 import NavBar from './navbar';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import { cookies } from "next/headers"
+import DarkBtn from './darkMode';
+
+
+
 
 
 
@@ -22,14 +27,23 @@ export default async function RootLayout({ children }) {
 
 //2. 클라이언트컴포넌트일때는 <SessionProvider> 로 하위 컴포넌트를 감싸면 하위컴포넌트중 클라이언트컴포넌트에서 useSession()이사용가능
 
-  return (
-    <html lang="en"> 
-      <body className={inter.className}>
-        <NavBar session={session}/>
 
+
+//다크모드 기능
+let res = cookies().get('mode')
+console.log(res.value)
+
+  return (
+    <html> 
+      <body className={ res.value == 'dark' ? "dark-mode" :'' }>
+        <div className='navbar'>
+        <NavBar session={session}/>
+        
         
         {children}
+        </div>
         </body>
+        
     </html>
   )
 }
