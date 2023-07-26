@@ -243,6 +243,45 @@ useEffect는 ajax나 타이머를 저장한다.
 일단 html로 뭐라도 보여주고 db자료를 박으면 사이트가 좀 빠르다고 느낄 수 있다.
 
 
+aws로 서버 배포 후 이미지 로드 기능: 
+aws에서 버킷을 하나 만듬(버킷은 하나의 하드디스크)
+버킷 정책 편집에 들어가서 어떤 사람들이 버킷 안의 사진을 수정하고 삭제할 수 있는지 정의할 수 있다.
+1. 모든 사람은 읽기 가능
+2. 관리자만 추가, 삭제 기능
+
+또하나의 보안장치 CORS
+
+AKIAWHQZUQNRG7Z7LHP5
+4YlARzkopI1hvXcrNyoCJ4SicGfT40HjsWBCsNuL
+
+<input type="file" accept="image/*"/>를 통해서 이미지를 선택할 수 있고
+선택한 이미지를 보여주려면
+1. createObjectURL 쓰거나
+2. 이미지를 업로드해버리거나(권장)
+
+
+다크모드 기능 : 
+1. 로컬스토리지 이용(세션스토리지나 state와 다르게 브라우저를 꺼도 데이터가 날아가지 않음)
+콘솔에
+localStorage.setItem('key','value') : key : value형태로 저장
+localStorage.getItem('key') : value 출력
+localStorage.setItem('key') : 삭제
+이것들은 자바스크립트 코드이기 때문에 클라이언트 컴포넌트 내에서 사용이 가능하다.
+
+2. 쿠키 이용 : 사이트당 보통 50개까지 저장 가능, 총 4kb까지
+콘솔에
+document.cookie = '쿠키이름=값' : 쿠키에 데이터 저장
+document.cookie = '쿠키이름=값; max-age=3600' : 쿠키의 유효기간 설정(유효기간 설정을 안하면 브라우저 끌때 같이 날라감(최대 400일))
+
+(중요) 쿠키는 server component에서 출력 가능, localStorage는 client component에서 출력 가능
+
+
+
+
+서버기능 중간에 간섭하는 코드는Middleware라고 함, 요청과 응답 사이에 실행되는 코드
+사이트의 루트 경로에 middleware.js파일을 만들면 댐
+
+
 
 
 
