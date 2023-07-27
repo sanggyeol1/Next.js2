@@ -16,4 +16,7 @@ export function middleware(request){
         console.log(request.headers.get('sec-ch-ua-platform'))
         return NextResponse.next()
       }
+
+    //로그인 안된 유저는 /write 페이지 접속 못하게 막자 
+    
 }
