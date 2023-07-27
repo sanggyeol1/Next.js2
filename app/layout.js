@@ -35,7 +35,8 @@ console.log(res.value)
 
   return (
     <html> 
-      <body className={ res.value == 'dark' ? "dark-mode" :'' }>
+      <body className={res!=undefined 
+        && res.value == 'dark' ? "dark-mode" :'' }>
         <div className='navbar'>
         <NavBar session={session}/>
         
