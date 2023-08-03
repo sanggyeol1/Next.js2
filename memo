@@ -251,8 +251,7 @@ aws에서 버킷을 하나 만듬(버킷은 하나의 하드디스크)
 
 또하나의 보안장치 CORS
 
-AKIAWHQZUQNRG7Z7LHP5
-4YlARzkopI1hvXcrNyoCJ4SicGfT40HjsWBCsNuL
+
 
 <input type="file" accept="image/*"/>를 통해서 이미지를 선택할 수 있고
 선택한 이미지를 보여주려면
